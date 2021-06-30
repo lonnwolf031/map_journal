@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
   void _delete() async {
     // Assuming that the number of rows is the id for the last row.
     final id = await dbHelper.queryRowCount();
-    final rowsDeleted = await dbHelper.delete(id);
+    final rowsDeleted = await dbHelper.delete(id!);
     print('deleted $rowsDeleted row(s): row $id');
   }
 }

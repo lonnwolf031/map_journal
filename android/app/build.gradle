@@ -27,7 +27,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
-def mapWriteKey = properties.getProperty('map.writeKey') // Notice we get the property we the exact same name we wrote in the local.properties file
+def geoAPIKey = properties.getProperty('geo.API_KEY') // Notice we get the property we the exact same name we wrote in the local.properties file
 android {
     compileSdkVersion 30
 
@@ -42,7 +42,7 @@ android {
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        manifestPlaceholders = [mapWriteKey: mapWriteKey]
+        manifestPlaceholders = [geoAPIKey: geoAPIKey]
     }
 
     buildTypes {

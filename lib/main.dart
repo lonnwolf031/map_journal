@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'routes/routes.dart';
 import 'reportsview.dart';
 import 'mapview.dart';
+import 'permissionview.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         routes.maps: (context) => MapView(),
         routes.reports: (context) => ReportsView(),
+        routes.permissions: (context) => PermissionView(),
       },
     );
   }

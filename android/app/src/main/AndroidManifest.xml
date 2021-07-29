@@ -2,7 +2,6 @@
     package="nl.lonnekekolkman.map_journal">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="map_journal"
         android:icon="@mipmap/ic_launcher">

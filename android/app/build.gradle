@@ -28,6 +28,15 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 def geoAPIKey = properties.getProperty('geo.API_KEY') // Notice we get the property we the exact same name we wrote in the local.properties file
+
+// below is custom properties for signing release
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+// until here
+
 android {
     compileSdkVersion 30
 
@@ -45,6 +54,22 @@ android {
         manifestPlaceholders = [geoAPIKey: geoAPIKey]
     }
 
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
+    /* standard below
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
@@ -52,7 +77,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-
+*/
 
 }
 

@@ -20,7 +20,7 @@ Widget createDrawer(BuildContext context) {
           ),
           ListTile(
               leading: Icon(Icons.monetization_on),
-              title: Text('New Transaction'),
+              title: Text('Map'),
               onTap: () {
                 Navigator.pushReplacementNamed(context, routes.maps);
               }),
@@ -29,6 +29,12 @@ Widget createDrawer(BuildContext context) {
               title: Text('Reports'),
               onTap: () {
                 Navigator.pushReplacementNamed(context, routes.reports);
+              }),
+          ListTile(
+              leading: Icon(Icons.pie_chart),
+              title: Text('Permissions'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, routes.permissions);
               }),
         ],
       ));

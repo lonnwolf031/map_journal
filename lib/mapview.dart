@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sqflite/sqflite.dart';
 import 'database_helper.dart';
-import 'package:geolocator/geolocator.dart';
 import 'drawer.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/services.dart';
 
 class MapView extends StatefulWidget {
   static const String routeName = '/mapview';
@@ -14,9 +15,30 @@ class MapView extends StatefulWidget {
 }
 
 class _MyAppState extends State<MapView> {
+
+  @override
+  void initState() {
+    runPermissions();
+    super.initState();
+  }
+
+  runPermissions() async {
+    if (await Permission.location.request().isGranted) {
+      ///Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
+    } else  {
+      /// exit app
+      SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop');
+    }
+  }
   // reference to our single class that manages the database
   final dbHelper = DatabaseHelper.instance;
 
+  /*
+  var status = await Permission.camera.status;
+  if (status.isDenied) {
+  // We didn't ask for permission yet or the permission has been denied before but not permanently.
+  }
+*/
   late GoogleMapController mapController;
 
   final LatLng _center = const LatLng(45.521563, -122.677433);
@@ -31,7 +53,7 @@ class _MyAppState extends State<MapView> {
       home: Scaffold(
         drawer: createDrawer(context),
         appBar: AppBar(
-          title: Text('Maps Sample App'),
+          title: Text('Maps Journal'),
           backgroundColor: Colors.green[700],
         ),
         body: GoogleMap(

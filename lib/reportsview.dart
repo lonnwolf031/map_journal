@@ -12,6 +12,7 @@ class ReportsView extends StatelessWidget {
         child: Scaffold(
             appBar: AppBar(
               title: const Text('Reports'),
+              backgroundColor: Colors.green[700],
               centerTitle: true,
             ),
             drawer: createDrawer(context)

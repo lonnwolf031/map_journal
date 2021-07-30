@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:map_journal/mapview.dart';
 import 'drawer.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -15,7 +16,7 @@ class _PermissionViewState extends State<PermissionView> {
         drawer: createDrawer(context),
         appBar: AppBar(
           title: Text("Request Permission"),
-          backgroundColor: Colors.redAccent,
+          backgroundColor: Colors.green[700],
         ),
         body: Container(
           alignment: Alignment.center,
@@ -29,6 +30,8 @@ class _PermissionViewState extends State<PermissionView> {
                     if (await Permission.location.request().isGranted) {
                       // Either the permission was already granted before or the user just granted it.
                       print("Location Permission is granted");
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => MapView()));
                     }else{
                       print("Location Permission is denied.");
                     }
@@ -43,7 +46,7 @@ class _PermissionViewState extends State<PermissionView> {
                     // You can request multiple permissions at once.
                     Map<Permission, PermissionStatus> statuses = await [
                       Permission.location,
-                      Permission.camera,
+                      //Permission.camera,
                       //add more permission to request here.
                     ].request();
 
@@ -51,8 +54,11 @@ class _PermissionViewState extends State<PermissionView> {
                       print("Location permission is denied.");
                     }
 
-                    if(statuses[Permission.camera]!.isDenied){ //check each permission status after.
-                      print("Camera permission is denied.");
+                    if(statuses[Permission.locationAlways]!.isDenied){ //check each permission status after.
+                      print("Location always is denied.");
+                    }
+                    if(statuses[Permission.locationWhenInUse]!.isDenied){ //check each permission status after.
+                      print("Location when in use is denied.");
                     }
                   },
                 ),

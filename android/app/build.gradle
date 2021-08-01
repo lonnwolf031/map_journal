@@ -1,3 +1,9 @@
+//plugins {
+//    id "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
+//}
+
+// orig
+/*
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -5,6 +11,21 @@ if (localPropertiesFile.exists()) {
         localProperties.load(reader)
     }
 }
+*/
+
+//new
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+def localPropertyApiToken = localProperties.getProperty("MAPS_API_KEY")
+def systemEnvApiToken = System.getenv('MAPS_API_KEY')
+def MAPS_API_KEY = localPropertyApiToken != null ? localPropertyApiToken : systemEnvApiToken
+
+
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
@@ -24,10 +45,14 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'com.android.application'
 
+// original below
+/*
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 def geoAPIKey = properties.getProperty('geo.API_KEY') // Notice we get the property we the exact same name we wrote in the local.properties file
+*/
 
 // below is custom properties for signing release
 def keystoreProperties = new Properties()
@@ -36,6 +61,8 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 // until here
+
+
 
 android {
     compileSdkVersion 30
@@ -51,7 +78,8 @@ android {
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        manifestPlaceholders = [geoAPIKey: geoAPIKey]
+        //manifestPlaceholders = [geoAPIKey: geoAPIKey]
+        manifestPlaceholders = [MAPS_API_KEY: MAPS_API_KEY]
     }
 
     signingConfigs {
@@ -76,10 +104,16 @@ android {
 
 }
 
+
+
 flutter {
     source '../..'
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.android.gms:play-services-location:21.26.00'
+    implementation 'com.google.android.gms:play-services-maps:21.26.20'
 }
+/// compile 'com.google.android.gms:play-services:8.4.0'
+apply plugin: 'com.google.gms.google-services'

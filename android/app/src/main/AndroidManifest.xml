@@ -10,9 +10,10 @@
 
        <!-- TODO: Add your API key here -->
 
-       <meta-data
-               android:name="com.google.android.geo.API_KEY"
-               android:value="${geoAPIKey}"/>
+<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCvX-uUXYQsIX-TUv6tgI1cnOzVDCM7I8I"/>
+
+       <meta-data android:name="com.google.android.geo.API_KEY"
+                  android:value="${MAPS_API_KEY}"/>
 
        <activity
             android:name=".MainActivity"

@@ -16,6 +16,15 @@ class MapView extends StatefulWidget {
 
 class _MyAppState extends State<MapView> {
 
+  late GoogleMapController mapController;
+  Set<Marker> _markers = Set();
+  final LatLng _center = const LatLng(45.521563, -122.677433);
+
+  int _numMarker = 0;
+
+  // reference to our single class that manages the database
+  final dbHelper = DatabaseHelper.instance;
+
   @override
   void initState() {
     runPermissions();
@@ -30,22 +39,26 @@ class _MyAppState extends State<MapView> {
       SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop');
     }
   }
-  // reference to our single class that manages the database
-  final dbHelper = DatabaseHelper.instance;
+ String numMarkerCounterToId() {
+    _numMarker = _numMarker++;
+    return _numMarker.toString();
+ }
 
-  /*
-  var status = await Permission.camera.status;
-  if (status.isDenied) {
-  // We didn't ask for permission yet or the permission has been denied before but not permanently.
-  }
-*/
-  late GoogleMapController mapController;
+ Marker _newMarker() {
+   Marker _marker = new Marker(markerId: MarkerId(numMarkerCounterToId()), position: currentlatlng, onTap: _onMarkerTap(_mID));
+   return _marker;
+ }
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+ void _onMarkerTap(int _id) {
+
+ }
+
+
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +75,13 @@ class _MyAppState extends State<MapView> {
             target: _center,
             zoom: 11.0,
           ),
+            onLongPress: (LatLng latLng) {
+              _markers.add(_newMarker());
+              // go to window to add info and add to sqflite
+              setState(() {});
+          },
+
+            markers: Set<Marker>.of(_markers),
         ),
       ),
     );

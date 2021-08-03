@@ -36,7 +36,7 @@ class _MyAppState extends State<MapView> {
       ///Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage()));
     } else  {
       /// exit app
-      SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop');
+      ///SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop');
     }
   }
  String numMarkerCounterToId() {
@@ -45,12 +45,13 @@ class _MyAppState extends State<MapView> {
  }
 
  Marker _newMarker() {
-   Marker _marker = new Marker(markerId: MarkerId(numMarkerCounterToId()), position: currentlatlng, onTap: _onMarkerTap(_mID));
-   return _marker;
+    MarkerId _mID = MarkerId(numMarkerCounterToId());
+    Marker _marker = new Marker(markerId: _mID, position: currentlatlng, onTap: _onMarkerTap(_mID));
+    return _marker;
  }
 
- void _onMarkerTap(int _id) {
-
+ void _onMarkerTap(MarkerId _id) {
+  // show infowindow
  }
 
 

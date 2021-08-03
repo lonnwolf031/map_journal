@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "814616544462",
+    "project_id": "mapjournalapp",
+    "storage_bucket": "mapjournalapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814616544462:android:1cac90e0e56aa99a683c9f",
+        "android_client_info": {
+          "package_name": "nl.lonnekekolkman.map_journal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "814616544462-qcjpn394egd7jgp710gshve65d4apasc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nl.lonnekekolkman.map_journal",
+            "certificate_hash": "9b6df8a9a77c20793ff8e5694e262b1e3a487e75"
+          }
+        },
+        {
+          "client_id": "814616544462-rn4q6o0jjo0s09l15k9l5vak3bj94ef5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvX-uUXYQsIX-TUv6tgI1cnOzVDCM7I8I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "814616544462-rn4q6o0jjo0s09l15k9l5vak3bj94ef5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

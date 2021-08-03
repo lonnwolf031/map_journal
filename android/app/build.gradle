@@ -112,8 +112,8 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.android.gms:play-services-location:21.26.00'
-    implementation 'com.google.android.gms:play-services-maps:21.26.20'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
 }
 /// compile 'com.google.android.gms:play-services:8.4.0'
 apply plugin: 'com.google.gms.google-services'

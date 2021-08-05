@@ -46,15 +46,18 @@ class _MyAppState extends State<MapView> {
 
  Marker _newMarker() {
     MarkerId _mID = MarkerId(numMarkerCounterToId());
-    Marker _marker = new Marker(markerId: _mID, position: currentlatlng, onTap: _onMarkerTap(_mID));
+    Marker _marker = new Marker(markerId: _mID, position: currentlatlng); //, onTap: _onMarkerTap(_mID)
     return _marker;
  }
 
- void _onMarkerTap(MarkerId _id) {
-  // show infowindow
+ InfoWindow _newInfoWindow(MarkerId _mId) {
+    InfoWindow _nwInfoWIndow = InfoWindow(title: "test", onTap: gotoscreenwithinfo);
+    return _nwInfoWIndow;
  }
 
+  void onMarkerTapped(Marker marker) {
 
+  }
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;

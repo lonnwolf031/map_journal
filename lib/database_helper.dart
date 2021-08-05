@@ -48,6 +48,24 @@ class DatabaseHelper {
           ''');
   }
 
+  /*
+  Future _onCreate(
+      Database db,
+      int version,
+      ) async {
+    await db.execute('''
+          CREATE TABLE TVSeries (
+            id INTEGER PRIMARY KEY,
+            title TEXT NOT NULL,
+            image TEXT,
+            episodes INTEGER,
+            description TEXT
+          )
+          ''');
+  }
+
+   */
+
   // Helper methods
 
   // Inserts a row in the database where each key in the Map is a column name
@@ -85,5 +103,43 @@ class DatabaseHelper {
   Future<int> delete(int id) async {
     Database db = await instance.database;
     return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
+  }
+
+  Future<List<TVSeries>> fetchAllTvSeries() async {
+    Database database = _database;
+    List<Map<String, dynamic>> maps = await database.query('TVSeries');
+    if (maps.isNotEmpty) {
+      return maps.map((map) => TVSeries.fromDbMap(map)).toList();
+    }
+    return null;
+  }
+
+  Future<int> addTVSeries(TVSeries tvSeries) async {
+    Database database = _database;
+    return database.insert(
+      'TVSeries',
+      tvSeries.toDbMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<int> updateTvSeries(TVSeries newTvSeries) async {
+    Database database = _database;
+    return database.update(
+      'TVSeries',
+      newTvSeries.toDbMap(),
+      where: 'id = ?',
+      whereArgs: [newTvSeries.id],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<int> deleteTvSeries(int id) async {
+    Database database = _database;
+    return database.delete(
+      'TVSeries',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 }

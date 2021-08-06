@@ -1,4 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter/services.dart';
+import 'dart:typed_data';
 
 class Item {
   int id;
@@ -18,6 +20,19 @@ class Item {
     map['description'] = description;
     return map;
   }
+}
+
+class ImageHandler {
+
+  Uint8List imgByteArray() {
+    return imgByteArray;
+  }
+
+  MemoryImage(this.bytes, { this.scale = 1.0 })
+
+  Uint8List data = (await rootBundle.load('assets/images/pikachu.png'))
+      .buffer
+      .asUint8List();
 }
 
 class TVSeries {

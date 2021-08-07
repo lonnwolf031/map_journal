@@ -1,6 +1,10 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/services.dart';
 import 'dart:typed_data';
+import 'dart:async';
+import 'dart:io';
+import 'dart:ui';
+import 'package:flutter/painting.dart';
 
 class Item {
   int id;
@@ -28,11 +32,21 @@ class ImageHandler {
     return imgByteArray;
   }
 
-  MemoryImage(this.bytes, { this.scale = 1.0 })
+  //MemoryImage(this.bytes, { this.scale = 1.0 })
 
-  Uint8List data = (await rootBundle.load('assets/images/pikachu.png'))
-      .buffer
-      .asUint8List();
+
+  //Returns a Future<Uint8List>
+  Future<Uint8List> _readToBytes() async {
+    var file = File.fromUri(Uri.parse(_filePath));
+    return await file.readAsBytes();
+  }
+
+  Future<Image> decodeImageFromList(Uint8List bytes) async {
+    final Codec codec = await PaintingBinding.instance!.instantiateImageCodec(bytes);
+    final FrameInfo frameInfo = await codec.getNextFrame();
+    return frameInfo.image;
+  }
+
 }
 
 class TVSeries {

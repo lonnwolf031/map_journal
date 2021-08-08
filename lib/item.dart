@@ -6,13 +6,21 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/painting.dart';
 import 'package:sqflite/sqflite.dart';
+import 'main.dart';
 
 class Item {
-  int id;
-  String title;
-  LatLng ltlngLocation;
-  String description;
+  late int id;
+  late String title;
+  late LatLng ltlngLocation;
+  late String description;
   List<Uint8List> images = [];
+
+  Item(String title, LatLng ltlnglocation, String description) {
+    this.id = itemId;
+    this.title = title;
+    this.ltlngLocation = ltlnglocation;
+    this.description = description;
+  }
   Item.fromDbMap(Map<String, dynamic> map)
   : id = map['id'],
     title = map['title'],

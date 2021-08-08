@@ -11,7 +11,7 @@ class AddItemView extends StatefulWidget {
   static const String routeName = '/additem';
   @override
   _AddItemViewState createState() => _AddItemViewState();
-}
+
 }
 
 class _AddItemViewState extends State<AddItemView> {
@@ -77,8 +77,10 @@ class _AddItemViewState extends State<AddItemView> {
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
+                    const SnackBar(content: Text('Saved data successfully')),
+
                   );
+                  //navigate back to map
                 }
               },
               child: const Text('Submit'),

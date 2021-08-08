@@ -12,6 +12,7 @@ class Item {
   String title;
   LatLng ltlngLocation;
   String description;
+  List<Uint8List> images = [];
   Item.fromDbMap(Map<String, dynamic> map)
   : id = map['id'],
     title = map['title'],

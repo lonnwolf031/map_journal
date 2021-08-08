@@ -1,8 +1,8 @@
 import 'dart:io';
-
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
+import 'item.dart';
 
 class DatabaseHelper {
 
@@ -37,6 +37,7 @@ class DatabaseHelper {
         onCreate: _onCreate);
   }
 
+  /*
   // SQL code to create the database table
   Future _onCreate(Database db, int version) async {
     await db.execute('''
@@ -47,24 +48,20 @@ class DatabaseHelper {
           )
           ''');
   }
-
-  /*
-  Future _onCreate(
-      Database db,
-      int version,
-      ) async {
+*/
+  Future _onCreate(Database db, int version) async {
     await db.execute('''
-          CREATE TABLE TVSeries (
+          CREATE TABLE items (
             id INTEGER PRIMARY KEY,
             title TEXT NOT NULL,
-            image TEXT,
-            episodes INTEGER,
-            description TEXT
+            ltlnglocation TEXT,
+            description TEXT,
+            images BLOB
           )
           ''');
   }
 
-   */
+
 
   // Helper methods
 
@@ -105,41 +102,42 @@ class DatabaseHelper {
     return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
   }
 
-  Future<List<TVSeries>> fetchAllTvSeries() async {
+  Future<List<Item>?> fetchAllItems() async {
     Database database = _database;
     List<Map<String, dynamic>> maps = await database.query('TVSeries');
     if (maps.isNotEmpty) {
-      return maps.map((map) => TVSeries.fromDbMap(map)).toList();
+      return maps.map((map) => Item.fromDbMap(map)).toList();
     }
     return null;
   }
 
-  Future<int> addTVSeries(TVSeries tvSeries) async {
+  Future<int> addItem(Item item) async {
     Database database = _database;
     return database.insert(
-      'TVSeries',
-      tvSeries.toDbMap(),
+      'items', // table name
+      item.toDbMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  Future<int> updateTvSeries(TVSeries newTvSeries) async {
+  Future<int> updateItem(Item item) async {
     Database database = _database;
     return database.update(
-      'TVSeries',
-      newTvSeries.toDbMap(),
+      'items',// table name
+      item.toDbMap(),
       where: 'id = ?',
-      whereArgs: [newTvSeries.id],
+      whereArgs: [item.id],
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  Future<int> deleteTvSeries(int id) async {
+  Future<int> deleteItem(int id) async {
     Database database = _database;
     return database.delete(
-      'TVSeries',
+      'items',// table name
       where: 'id = ?',
       whereArgs: [id],
     );
   }
+
 }

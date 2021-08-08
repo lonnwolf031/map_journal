@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/painting.dart';
+import 'package:sqflite/sqflite.dart';
 
 class Item {
   int id;
@@ -19,7 +20,7 @@ class Item {
   Map<String, dynamic> toDbMap() {
     var map = Map<String, dynamic>();
     map['id'] = id;
-    map['title'] = title,
+    map['title'] = title;
     map['ltlnglocation'] = ltlngLocation;
     map['description'] = description;
     return map;
@@ -27,16 +28,7 @@ class Item {
 }
 
 class ImageHandler {
-
-  Uint8List imgByteArray() {
-    return imgByteArray;
-  }
-
-  //MemoryImage(this.bytes, { this.scale = 1.0 })
-
-
-  //Returns a Future<Uint8List>
-  Future<Uint8List> _readToBytes() async {
+  Future<Uint8List> _imgReadToBytes() async {
     var file = File.fromUri(Uri.parse(_filePath));
     return await file.readAsBytes();
   }
@@ -45,29 +37,5 @@ class ImageHandler {
     final Codec codec = await PaintingBinding.instance!.instantiateImageCodec(bytes);
     final FrameInfo frameInfo = await codec.getNextFrame();
     return frameInfo.image;
-  }
-
-}
-
-class TVSeries {
-  int id;
-  String title;
-  int episodes;
-  String image;
-  String description;
-  TVSeries.fromDbMap(Map<String, dynamic> map)
-      : id = map['id'],
-        title = map['title'],
-        image = map['image'],
-        episodes = map['episodes'],
-        description = map['description'];
-  Map<String, dynamic> toDbMap() {
-    var map = Map<String, dynamic>();
-    map['id'] = id;
-    map['title'] = title;
-    map['image'] = image;
-    map['episodes'] = episodes;
-    map['description'] = description;
-    return map;
   }
 }

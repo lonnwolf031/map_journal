@@ -5,6 +5,7 @@ import 'database_helper.dart';
 import 'drawer.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
+import 'item.dart';
 
 class MapView extends StatefulWidget {
   static const String routeName = '/mapview';
@@ -82,6 +83,8 @@ class _MyAppState extends State<MapView> {
             onLongPress: (LatLng latLng) {
               _markers.add(_newMarker());
               // go to window to add info and add to sqflite
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => MapView()));
               setState(() {});
           },
 
@@ -92,6 +95,14 @@ class _MyAppState extends State<MapView> {
   }
 
   // Button onPressed methods
+  void _insertItem(Item itm) async {
+    try {
+      final id = await dbHelper.insert(itm.toDbMap());
+    }
+    catch(e) {
+      print("error inserting item");
+    }
+  }
 
   void _insert() async {
     // row to insert

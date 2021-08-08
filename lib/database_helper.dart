@@ -6,7 +6,7 @@ import 'item.dart';
 
 class DatabaseHelper {
 
-  static final _databaseName = "MyDatabase.db";
+  static final _databaseName = "ItemDatabase.db";
   static final _databaseVersion = 1;
 
   static final table = 'my_table';

@@ -17,13 +17,15 @@ class Item {
   : id = map['id'],
     title = map['title'],
     ltlngLocation = map['ltlnglocation'],
-    description = map['description'];
+    description = map['description'],
+    images = map['images'];
   Map<String, dynamic> toDbMap() {
     var map = Map<String, dynamic>();
     map['id'] = id;
     map['title'] = title;
     map['ltlnglocation'] = ltlngLocation;
     map['description'] = description;
+    map['images'] = images;
     return map;
   }
 }
